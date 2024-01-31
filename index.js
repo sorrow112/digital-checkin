@@ -1,17 +1,16 @@
 const express = require("express");
-const fs = require("fs").promises;
-const path = require("path");
-const process = require("process");
 const { google } = require("googleapis");
-const { authenticate } = require("@google-cloud/local-auth");
+require("dotenv").config();
+const path = require("path");
 
 const app = express();
 
 app.get("/:id", async (req, res) => {
   const id = req.params.id;
   const auth = new google.auth.GoogleAuth({
-    keyFile: "credentials.json", //the key file
+    keyFile: path.join(__dirname, process.env.PATH_TO_CREDS), //the key file
     //url to spreadsheets API
+
     scopes: "https://www.googleapis.com/auth/spreadsheets",
   });
 
